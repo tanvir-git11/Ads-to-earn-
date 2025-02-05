@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Page Ad Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        main {
+            flex: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        .ad-placeholder {
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Ad-Supported Website</h1>
+    </header>
+
+    <main>
+        <article>
+            <h2>Main Content</h2>
+            <p>This is a brief article. The focus is on displaying ads while scrolling.</p>
+        </article>
+
+        <div class="ad-placeholder">Ad Space 1</div>
+        <div class="ad-placeholder">Ad Space 2</div>
+        <div class="ad-placeholder">Ad Space 3</div>
+        <div class="ad-placeholder">Ad Space 4</div>
+        <div class="ad-placeholder">Ad Space 5</div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 My Ad-Supported Website. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // MonetizeAd integration
+        (function() {
+            var script = document.createElement('script');
+            script.src = 'https://get.monet-ads.com/pub/YOUR_PUBLISHER_ID/anonymous.js';
+            script.async = true;
+            document.body.appendChild(script);
+        })();
+
+        // Show ads on scroll
+        let lastScrollTop = 0;
+        let adCounter = 0;
+        const maxAds = 10; // Maximum number of ads to show
+
+        window.addEventListener('scroll', function() {
+            var st = window.pageYOffset || document.documentElement.scrollTop;
+            if (st > lastScrollTop && adCounter < maxAds) {
+                // Scrolling down
+                if (typeof window.ma_show_popup === 'function') {
+                    window.ma_show_popup();
+                    adCounter++;
+                }
+                if (typeof window.ma_show_notification === 'function') {
+                    window.ma_show_notification();
+                    adCounter++;
+                }
+            }
+            lastScrollTop = st <= 0 ? 0 : st;
+        }, false);
+    </script>
+</body>
+</html>
